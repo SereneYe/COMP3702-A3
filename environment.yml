@@ -1,73 +1,43 @@
-name: comp3702-tut11
+name: DQN2
 channels:
   - pytorch
+  - nvidia
+  - conda-forge
   - defaults
 dependencies:
-  - blas
-  - brotlipy
-  - bzip2
-  - ca-certificates
-  - certifi
-  - cffi
-  - charset-normalizer
-  - cpuonly
-  - cryptography
-  - ffmpeg
-  - freetype
-  - giflib
-  - gmp
-  - gnutls
-  - idna
-  - jpeg
-  - lame
-  - lcms2
-  - ld_impl_linux-64
-  - libffi
-  - libiconv
-  - libidn2
-  - libpng
-  - libtasn1
-  - libtiff
-  - libunistring
-  - libuv
-  - libwebp
-  - libwebp-base
-  - lz4-c
-  - ncurses
-  - nettle
-  - numpy
-  - numpy-base
-  - openh264
-  - openssl
-  - pillow
+  - python>=3.5
+  - anaconda
   - pip
-  - pycparser
-  - pyopenssl
-  - pysocks
-  - python
   - pytorch
-  - pytorch-mutex
-  - readline
-  - requests
-  - setuptools
-  - six
-  - sqlite
-  - tk
-  - torchaudio
   - torchvision
-  - typing_extensions
-  - urllib3
-  - wheel
-  - xz
-  - zlib
-  - zstd
-  - pip:
-    - box2d
-    - cloudpickle
-    - gym
-    - gym-notices
-    - importlib-metadata
-    - pygame
-    - pyyaml
-    - zipp
-
+  - torchaudio
+  - pytorch-cuda=11.8 # comment this out if you don't have a GPU
+  - astroid
+  - box2d-py
+  - cloudpickle
+  - contourpy
+  - cycler
+  - dill
+  - farama-notifications
+  - fonttools
+  - gym
+  - gym-notices
+  - gymnasium
+  - isort
+  - joblib
+  - kiwisolver
+  - matplotlib
+  - mccabe
+  - pandas
+  - pygame
+  - pylint
+  - pyparsing
+  - pytz
+  - scikit-learn
+  - seaborn
+  - swig
+  - threadpoolctl
+  - tomli
+  - tomlkit
+  - typeguard
+  - tzdata

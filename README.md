@@ -13,7 +13,7 @@ This way, PyTorch without GPU will be installed. If you have a GPU and want a GP
 ### Running
 
 There are 2 versions: [dqn_cartpole.py](dqn_cartpole.py) is a simple implementation with all the parameters hardcoded 
-and [dqn_gym.py](dqn_gym_Q3.py) where the hyper-parameters are in the external [config file](config/dqn.yaml), and it also provides implementation for a single hidden layer DQN, two hidden layers DQN, as well as the Duelling DQN.
+and [dqn_gym.py](dqn_gym_Q1.py) where the hyper-parameters are in the external [config file](config/dqn.yaml), and it also provides implementation for a single hidden layer DQN, two hidden layers DQN, as well as the Duelling DQN.
 
 To run the simple example:
 
@@ -24,7 +24,7 @@ With the default hyper-params it should start learning at about 13k frames and i
 
 #### [OpenAI Gym](https://www.gymlibrary.dev/) Environments
 
-[dqn_gym.py](dqn_gym_Q3.py) has the hyper-params are moved to the [config file](config/dqn.yaml). The config file has 3 sets of parameters, that are selected based on the environment (there is `CartPole-v0`, `CartPole-v1` and `LunarLander-v2`), controlled by command line argument `-e ...`.
+[dqn_gym.py](dqn_gym_Q1.py) has the hyper-params are moved to the [config file](config/dqn.yaml). The config file has 3 sets of parameters, that are selected based on the environment (there is `CartPole-v0`, `CartPole-v1` and `LunarLander-v2`), controlled by command line argument `-e ...`.
 
 The DQN network structure is controlled by command line argument `-n ` 
 (with choices of `single-hidden` for a single hidden layer, `two-hidden` for 2 hidden layers (both for a plain [DQN](https://arxiv.org/abs/1312.5602)), and `duelling-dqn` for [Duelling DQN](https://arxiv.org/abs/1511.06581)).
