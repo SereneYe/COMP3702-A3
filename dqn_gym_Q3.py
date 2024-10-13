@@ -148,6 +148,7 @@ def calculate_loss(net, target_net):
     # 返回损失值
     return loss
 
+
 reward_values_list = []
 r100_values_list = []
 
@@ -195,8 +196,6 @@ while True:
             fps = (frame_idx - episode_frame) / (time.time() - episode_start)  # 计算每秒的步数
             print(
                 f"Frame: {frame_idx}: Episode: {episode_no}, R100: {r100: .2f}, MaxR: {max_reward: .2f}, R: {episode_reward: .2f}, FPS: {fps: .1f}, L100: {l100: .2f}, Epsilon: {epsilon: .4f}")
-
-
             r100_values_list.append(r100)
             reward_values_list.append(episode_reward)
 
@@ -239,3 +238,23 @@ while True:
         print(f"Ran out of time at {time.time() - start}") # 输出训练结束的信息
         break
 
+
+def plot_rewards(r100_values, reward_values, environment, network):
+    plt.figure(figsize=(10, 5))
+    plt.plot(r100_values, label='R100')
+    plt.plot(reward_values, label='Episode Reward')
+    plt.title(f'{environment}-{network} Rewards vs Episode Number')
+    plt.xlabel('Episode')
+    plt.ylabel('Reward')
+    plt.legend()
+    plt.grid(True)
+
+    images_dir = 'Q1_Images'
+    if not os.path.exists(images_dir):
+        os.makedirs(images_dir)
+    filename = os.path.join(images_dir, f'{environment}-{network}.png')
+    plt.savefig(filename)
+    plt.show()
+
+
+plot_rewards(r100_values_list, reward_values_list, args.env, args.network)

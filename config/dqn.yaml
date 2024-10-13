@@ -78,3 +78,28 @@ LunarLander-v2:
 
   clip_gradient: false  # 是否在优化过程中对梯度进行裁剪以防止梯度爆炸。
 
+LunarLander-v3:
+  gamma: 0.99
+  batch_size: 128
+  hidden_size: 256
+  hidden_size2: 300
+
+  replay_size: 1.0e+6
+  replay_size_start: 5000
+
+  epsilon_decay: 50000
+  epsilon_final: 0.001
+  epsilon_start: 1.0
+
+  learning_rate: 1.0e-3
+
+  target_net_sync: 1.0e+3
+  alpha_sync: false
+  tau: 0.005
+
+  stopping_reward: 200
+  max_frames: 1.0e+6
+
+  save_path: saved_models
+
+  clip_gradient: false
