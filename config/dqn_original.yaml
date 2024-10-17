@@ -20,10 +20,8 @@ CartPole-v0:
   save_path: saved_models
 
   target_net_sync: 1.0e+3
-#  target_net_sync: 500
-#  target_net_sync: 2000
-  tau: 0.01
-  alpha_sync: true
+  tau: 0.005
+  alpha_sync: false
 
   clip_gradient: false
 

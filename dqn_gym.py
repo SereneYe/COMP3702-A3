@@ -133,6 +133,7 @@ def calculate_loss(net, target_net):
 
 reward_values_list = []
 r100_values_list = []
+losses_list = []
 
 while True:
     frame_idx += 1
@@ -179,6 +180,7 @@ while True:
                 f"Frame: {frame_idx}: Episode: {episode_no}, R100: {r100: .2f}, MaxR: {max_reward: .2f}, R: {episode_reward: .2f}, FPS: {fps: .1f}, L100: {l100: .2f}, Epsilon: {epsilon: .4f}")
             r100_values_list.append(r100)
             reward_values_list.append(episode_reward)
+            losses_list.append(l100)
 
             # visualize the training when reached 95% of the target R100
             if not visualizer_on and r100 > 0.95 * params['stopping_reward']:
@@ -218,10 +220,11 @@ while True:
         break
 
 
-def plot_rewards(r100_values, reward_values, environment, network):
+def plot_raw_rewards(r100_values, reward_values, environment, network):
     plt.figure(figsize=(10, 5))
-    plt.plot(r100_values, label='R100')
     plt.plot(reward_values, label='Episode Reward')
+    plt.plot(r100_values, label='R100')
+
     plt.title(f'{environment}-{network} Rewards vs Episode Number')
     plt.xlabel('Episode')
     plt.ylabel('Reward')
@@ -235,5 +238,53 @@ def plot_rewards(r100_values, reward_values, environment, network):
     plt.savefig(filename)
     plt.show()
 
+# plot_raw_rewards(r100_values_list, reward_values_list, args.env, args.network)
 
-plot_rewards(r100_values_list, reward_values_list, args.env, args.network)
+def plot_q2_r100_rewards(r100_values, environment, network):
+    plt.figure(figsize=(10, 5))
+    plt.plot(r100_values, label='R100')
+    plt.title(f'{environment}-{network} Rewards vs Episode Number')
+    plt.xlabel('Episode')
+    plt.ylabel('Reward')
+    plt.legend()
+    plt.grid(True)
+
+    images_dir = 'Q2_Images'
+    if not os.path.exists(images_dir):
+        os.makedirs(images_dir)
+    filename = os.path.join(images_dir, f'{environment}-{network}.png')
+    plt.savefig(filename)
+    plt.show()
+
+def save_model_data(values, filename, model_desc, directory='Q3_Images'):
+    # Ensure the directory exists
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Full path to the file
+    filepath = os.path.join(directory, filename)
+
+    # Load existing data
+    if os.path.isfile(filepath):
+        data = np.load(filepath, allow_pickle=True).item()
+    else:
+        data = {}
+
+    # Append new data
+    data[model_desc] = np.array(values)
+
+    # Save data
+    np.save(filepath, data)
+
+
+# save_model_data(r100_values_list, 'r100_values.npy', 'alpha_sync_0.005')
+# save_model_data(losses_list, 'losses.npy', 'alpha_sync_0.005')
+save_model_data(r100_values_list, 'r100_values.npy', 'alpha_sync_0.01')
+save_model_data(losses_list, 'losses.npy', 'alpha_sync_0.01')
+# save_model_data(r100_values_list, 'r100_values.npy', 'target_net_sync_1000')
+# save_model_data(losses_list, 'losses.npy', 'target_net_sync_1000')
+# save_model_data(r100_values_list, 'r100_values.npy', 'target_net_sync_500')
+# save_model_data(losses_list, 'losses.npy', 'target_net_sync_500')
+# save_model_data(r100_values_list, 'r100_values.npy', 'target_net_sync_2000')
+# save_model_data(losses_list, 'losses.npy', 'target_net_sync_2000')
+

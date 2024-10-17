@@ -149,7 +149,7 @@ def calculate_loss(net, target_net):
     return loss
 
 
-reward_values_list = []
+
 r100_values_list = []
 
 while True:
@@ -197,10 +197,8 @@ while True:
             print(
                 f"Frame: {frame_idx}: Episode: {episode_no}, R100: {r100: .2f}, MaxR: {max_reward: .2f}, R: {episode_reward: .2f}, FPS: {fps: .1f}, L100: {l100: .2f}, Epsilon: {epsilon: .4f}")
             r100_values_list.append(r100)
-            reward_values_list.append(episode_reward)
 
-
-            # visualize the training when reachedd 95% of the target R100
+         # visualize the training when reachedd 95% of the target R100
             if not visualizer_on and r100 > 0.95 * params['stopping_reward']:  # 如果当前平均奖励达到目标的95%
                 env = gym.make(args.env, render_mode='human')  # 创建一个新的环境实例，用于可视化
                 env.reset()  # 重置环境
@@ -239,22 +237,19 @@ while True:
         break
 
 
-def plot_rewards(r100_values, reward_values, environment, network):
+def plot_q2_r100_rewards(r100_values, environment, network):
     plt.figure(figsize=(10, 5))
     plt.plot(r100_values, label='R100')
-    plt.plot(reward_values, label='Episode Reward')
     plt.title(f'{environment}-{network} Rewards vs Episode Number')
     plt.xlabel('Episode')
     plt.ylabel('Reward')
     plt.legend()
     plt.grid(True)
 
-    images_dir = 'Q1_Images'
+    images_dir = 'Q2_Images'
     if not os.path.exists(images_dir):
         os.makedirs(images_dir)
     filename = os.path.join(images_dir, f'{environment}-{network}.png')
     plt.savefig(filename)
     plt.show()
 
-
-plot_rewards(r100_values_list, reward_values_list, args.env, args.network)
